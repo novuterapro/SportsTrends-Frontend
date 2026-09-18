@@ -1,70 +1,162 @@
-# Getting Started with Create React App
+# SportsTrends Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based web application for analyzing Arabic sports trends, comparing topics, and generating AI-powered predictions. This frontend communicates with the SportsTrends Backend API.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Interactive Dashboard: Visualizes trending sports topics from news and YouTube.
+- Trend Analysis: Displays combined, news-only, and YouTube-only trends with score breakdowns.
+- Topic Comparison: Compare multiple sports categories side-by-side with charts and statistics.
+- Sentiment Overview: Visualizes positive, negative, and neutral sentiment distribution.
+- Entity Explorer: Shows detected teams, players, and their co-occurrence relationships.
+- AI Predictions: Interface for generating future trend forecasts and match outcome predictions with confidence scores.
+- Fully Responsive: Optimized for desktop and mobile viewing.
+- Arabic RTL Support: Built for Arabic content with proper right-to-left layout.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Layer | Technology |
+|-------|-----------|
+| Framework | React |
+| UI Library | Material-UI (MUI) |
+| Charts | Chart.js, react-chartjs-2 |
+| HTTP Client | Axios |
+| Date Handling | chartjs-adapter-date-fns |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```text
+football-trends/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── About.jsx
+│   │   ├── ConfidenceIndicator.jsx
+│   │   ├── DashHead.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Head.jsx
+│   │   ├── Hero.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── PredictionPage.jsx
+│   │   ├── SearchResults.jsx
+│   │   ├── TrendDashboard.css
+│   │   └── TrendDashboard.jsx
+│   ├── pages/
+│   │   ├── Dashboard.jsx
+│   │   ├── Homepage.jsx
+│   │   └── PredictionPage.jsx
+│   ├── Styles/
+│   │   ├── about.css
+│   │   ├── confidenceIndicator.css
+│   │   ├── dashHead.css
+│   │   ├── footer.css
+│   │   ├── global.css
+│   │   ├── head.css
+│   │   ├── hero.css
+│   │   ├── navbar.css
+│   │   ├── PredictionPage.css
+│   │   ├── searchResults.css
+│   │   └── TrendDashboard.css
+│   ├── App.js
+│   ├── index.js
+│   ├── reportWebVitals.js
+│   └── setupTests.js
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── README.md
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ensure you have the following installed:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js (v16 or higher)
+- npm or yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. Clone the repository
 
-### `npm run eject`
+```bash
+git clone https://github.com/novuterapro/SportsTrends-Frontend.git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2. Install dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm install
+# or
+yarn install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. Configure the API Endpoint
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Currently, the API URL is hardcoded to `http://localhost:8000` in `TrendDashboard.jsx` and `PredictionPage.jsx`.
 
-## Learn More
+For local development, ensure your backend is running on port 8000.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For production deployment, it is highly recommended to use environment variables. Create a `.env` file in the root of the project and replace the hardcoded URLs with `process.env.REACT_APP_API_URL` in your components.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
 
-### Code Splitting
+### 4. Run the Development Server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm start
+# or
+yarn start
+```
 
-### Analyzing the Bundle Size
+The application will be available at: `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Make sure the SportsTrends Backend is running before using the app.
 
-### Making a Progressive Web App
+## API Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The frontend communicates with the following backend endpoints:
 
-### Advanced Configuration
+### Analysis
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Endpoint | Used For |
+|----------|----------|
+| `POST /api/advanced_analysis` | Full trend analysis for a selected topic (`TrendDashboard`) |
+| `GET /api/top_categories` | Populating category dropdowns (`TrendDashboard`) |
+| `GET /api/check_topic/{topic}` | Validating user input (`TrendDashboard`) |
 
-### Deployment
+### Search and Compare
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+| Endpoint | Used For |
+|----------|----------|
+| `POST /api/compare` | Comparison view (`TrendDashboard`) |
 
-### `npm run build` fails to minify
+### Predictions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Endpoint | Used For |
+|----------|----------|
+| `GET /api/sports` | Populating the sports selector (`PredictionPage`) |
+| `POST /api/predict` | Generating trend and match predictions (`PredictionPage`) |
+
+## Build for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+The production build will be optimized for performance and ready for deployment in the `build/` folder.
+
+## Deployment
+
+The frontend can be deployed to any static hosting provider such as:
+
+- Vercel
+- Netlify
+- Cloudflare Pages
+
+Ensure the backend is deployed and accessible, and update the API URL in the frontend code or environment variables accordingly.
+
